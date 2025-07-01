@@ -1,11 +1,11 @@
-const chalk = require('chalk').default;
-const debug = require('debug');
+import chalk from 'chalk';
+import debug from 'debug';
 
-module.exports = function createLogger(name) {
+export default function createLogger(name) {
   return {
     log: (...args) => console.log(chalk.gray(...args)),
     warning: (...args) => console.log(chalk.yellow(...args)),
     highlight: (...args) => console.log(chalk.bgCyanBright(...args)),
     debug: debug(name)
   };
-}          
+}

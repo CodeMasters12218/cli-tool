@@ -1,3 +1,3 @@
-module.exports = {
-    port: 6666
-}
+export default {
+  port: 6666
+};
