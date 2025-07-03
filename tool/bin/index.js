@@ -8,6 +8,7 @@ import chalk from 'chalk';
 import getConfig from '../src/config/config-mgr.js';
 import start from '../src/commands/start.js';
 import fetchData from '../src/commands/fetch.js';
+import transform from '../src/commands/transform.js';
 
 try {
   const args = arg({
@@ -16,6 +17,8 @@ try {
     '--selector': String,
     '--output': String,
     '--attr': [String],
+    '--filter': String,
+    '--pick': String, 
   });
 
   logger.debug('Received args', args);
@@ -34,6 +37,18 @@ try {
       process.exit(1);
     }
     await fetchData({ url, selector, output, attr });
+  } else if (args._[0] === 'transform') {
+    const inputFile = args._[1];
+    const filter = args['--filter'];
+    const pick = args['--pick'];
+
+    if (!inputFile) {
+      logger.warning('You must provide an input JSON file for transformation.');
+      usage();
+      process.exit(1);
+    }
+
+    await transform ({inputFile, filter, pick});
   }
 } catch (e) {
   logger.warning(e.message);
