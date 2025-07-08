@@ -9,6 +9,8 @@ import getConfig from '../src/config/config-mgr.js';
 import start from '../src/commands/start.js';
 import fetchData from '../src/commands/fetch.js';
 import transform from '../src/commands/transform.js';
+import exportData from '../src/commands/exportData.js';
+
 
 try {
   const args = arg({
@@ -19,6 +21,7 @@ try {
     '--attr': [String],
     '--filter': String,
     '--pick': String, 
+    '--format': String,
   });
 
   logger.debug('Received args', args);
@@ -49,6 +52,21 @@ try {
     }
 
     await transform ({inputFile, filter, pick});
+  } else if (args._[0] === 'export') {
+    const inputFile = args._[1];
+    const format = args['--format'];
+
+    if (!inputFile) {
+      logger.warning('You must provide an input JSON file for export.');
+      usage();
+      process.exit(1);
+    }
+    if (!format || !['csv', 'markdown', 'table'].includes(format.toLowerCase())) {
+      logger.warning('You must provide a valid --format: csv, markdown, or table.');
+      usage();
+      process.exit(1);
+    }
+    await exportData({ inputFile, format });
   }
 } catch (e) {
   logger.warning(e.message);
