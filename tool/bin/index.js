@@ -5,6 +5,9 @@ const logger = loggerModule('bin');
 
 import arg from 'arg';
 import chalk from 'chalk';
+import { existsSync } from 'node:fs';
+import { resolve, join } from 'node:path';
+import { fork } from 'node:child_process';
 import getConfig from '../src/config/config-mgr.js';
 import start from '../src/commands/start.js';
 import fetchData from '../src/commands/fetch.js';
@@ -25,6 +28,35 @@ try {
   });
 
   logger.debug('Received args', args);
+
+    if (args._[0] === 'script' && args._[1] === 'run') {
+    const scriptPath = args._[2];
+    if (!scriptPath) {
+      logger.warning('You must specify a script file to run.');
+      usage();
+      process.exit(1);
+    }
+
+    const fullPath = resolve(process.cwd(), scriptPath);
+    if (!existsSync(fullPath)) {
+      logger.warning(`Script file not found: ${fullPath}`);
+      process.exit(1);
+    }
+    if (!fullPath.endsWith('.js')) {
+      logger.warning('Only .js script files are supported.');
+      process.exit(1);
+    }
+
+    logger.debug(`Running script: ${fullPath}`);
+
+    const child = fork(fullPath, {
+      stdio: 'inherit',
+    }); 
+
+    child.on('exit', (code) => {
+      process.exit(code);
+    });
+  }
 
   if (args['--start']) {
     const config = getConfig();
@@ -80,5 +112,11 @@ function usage() {
   ${chalk.greenBright('--build')}\tBuilds the app
   ${chalk.greenBright('fetch <url> --selector <css> [--attr name] [--output file]')}
     \tScrapes elements matching a CSS selector from the page
+      ${chalk.greenBright('transform <inputFile> [--filter <filter>] [--pick <pick>]')}
+    \tTransforms input JSON file
+  ${chalk.greenBright('export <inputFile> --format <format>')}
+    \tExports data in specified format
+  ${chalk.greenBright('script run <script.js>')}
+    \tRuns a user-defined JavaScript script file in Node.js
   `);
 }
