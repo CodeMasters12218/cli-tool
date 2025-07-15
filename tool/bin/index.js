@@ -18,7 +18,6 @@ import exportData from '../src/commands/exportData.js';
 try {
   const args = arg({
     '--start': Boolean,
-    '--build': Boolean,
     '--selector': String,
     '--output': String,
     '--attr': [String],
@@ -109,7 +108,6 @@ try {
 function usage() {
   console.log(`${chalk.whiteBright('tool [CMD]')}
   ${chalk.greenBright('--start')}\tStarts the app
-  ${chalk.greenBright('--build')}\tBuilds the app
   ${chalk.greenBright('fetch <url> --selector <css> [--attr name] [--output file]')}
     \tScrapes elements matching a CSS selector from the page
       ${chalk.greenBright('transform <inputFile> [--filter <filter>] [--pick <pick>]')}
