@@ -6,7 +6,7 @@
 + [Usage](#usage)
 
 ## About <a name = "about"></a>
-A simple command line tool built using node.js that is capable of doing scraping, filtering JSON files, exporting them to CSV, table or Markdown and running external scripts.
+A simple command line tool built using Node.js that is capable of doing scraping, filtering JSON files, exporting them to CSV, table or Markdown and running external scripts.
 
 ## Getting Started <a name = "getting_started"></a>
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
