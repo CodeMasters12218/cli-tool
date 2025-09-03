@@ -1,148 +1,149 @@
-# cli-tool
+# 📦 CLI Tool
 
-## Table of Contents
-+ [About](#about)
-+ [Getting Started](#getting_started)
-+ [Usage](#usage)
+## 📖 Table of Contents
 
-## About <a name = "about"></a>
-A simple command line tool built using Node.js that is capable of doing scraping, filtering JSON files, exporting them to CSV, table or Markdown and running external scripts.
+* [About](#about)
+* [Getting Started](#getting-started)
+* [Usage](#usage)
+* [License](#license)
 
-## Getting Started <a name = "getting_started"></a>
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
+---
+
+## 🔹 About <a name="about"></a>
+
+A command-line tool built with **Node.js**, capable of:
+
+* Scraping elements from web pages
+* Filtering JSON files
+* Exporting data to **CSV**, **Markdown**, or **table**
+* Running external JavaScript scripts
+
+---
+
+## ⚙️ Getting Started <a name="getting-started"></a>
+
+These instructions will help you get a copy of the project up and running for development and testing.
+
 ### Prerequisites
 
-You need to have the following installed on your machine:
+Make sure you have the following installed:
 
 ```
 - Node.js (https://nodejs.org/) (v14 or higher)
 - npm (bundled with Node.js)
-- For development, it's recommended to have Git (https://git-scm.com/) and an IDE like VSCode (https://code.visualstudio.com/)
+- For development: Git (https://git-scm.com/) and VSCode (https://code.visualstudio.com/) are recommended
 ```
 
-The tool also depends on several Node packages including 'ajv', 'arg', 'chalk', 'puppeteer' and others. These will be installed via npm.
+The tool depends on several Node.js packages such as `ajv`, `arg`, `chalk`, `puppeteer`, and others. These are installed automatically via npm.
 
-### Installing
+### Installation
 
-Follow these steps to get the development environment set up and run the CLI tool locally:
+1. Clone the repository:
 
-### 1. Clone the repository
+   ```bash
+   git clone https://github.com/CodeMasters12218/cli-tool.git
+   ```
+2. Enter the project directory:
 
-```
-git clone https://github.com/CodeMasters12218/cli-tool.git
-```
+   ```bash
+   cd <repo-folder>
+   ```
+3. Install dependencies:
 
-### 2. Navigate into the project directory:
+   ```bash
+   npm install
+   ```
+4. (Optional) Link the CLI tool globally:
 
-```
-cd <repo-folder>
-```
+   ```bash
+   npm link
+   ```
+5. Run the tool:
 
-### 3. Install dependencies:
+   ```bash
+   tool
+   ```
 
-```
-npm install
-```
-### 4. (Optional) Link the CLI tool globally on your machine:
+---
 
-```
-npm link
-```
-
-### 5. Run the CLI tool:
-
-```
-tool
-```
-
-### Usage Example
-
-Run an external script using the CLI tool:
-
-```
-tool script run myscript.js
-```
-
-This command runs the specified external script ('myscript.js').
-
-## Usage <a name = "usage"></a>
+## 🖥️ Usage <a name="usage"></a>
 
 The CLI tool supports the following commands:
 
 ### 1. Fetch
 
-Scrape elements from a webpage using a CSS selector.
+Scrape elements from a web page.
 
-```
+```bash
 tool fetch <url> --selector <css> [--attr <attribute>] [--output <file>]
 ```
 
-- ```<url>```: The URL to scrape data from.
-- ```<--selector>```: CSS selector for elements to fetch (required).
-- ```<--attr>```: Optional attribute(s) to extract from each element. Can be repeated.
-- ```<--output>```: Optional output JSON file to save the result.
+**Example:**
 
-### Example:
-
-```
+```bash
 tool fetch https://example.com --selector "div.article" --attr href --attr title --output articles.json
 ```
-This fetches all  ```div.article``` elements from the page, extracting their  ```href``` and  ```title``` attributes, then saves the results to ```articles.json```.
+
+This command extracts all `div.article` elements from the page, retrieves their `href` and `title` attributes, and saves them to `articles.json`.
+
+---
 
 ### 2. Transform
 
-Filter and pick fields from a JSON file.
+Filter and select fields from a JSON file.
 
-```
+```bash
 tool transform <input.json> [--filter <filter>] [--pick <fields>]
 ```
 
-- ```<input.json>```: Path to the JSON file to transform (required).
-- ```--filter```: A filter expression, e.g. ``` age>30 ```.
-- ```--pick```: Comma-separated list of fields to keep, e.g. ```name,email```.
+**Example:**
 
-### Example:
-
-```
+```bash
 tool transform data.json --filter "age>30" --pick "name,email"
 ```
 
-This filters ```data.json``` to include only records where ```age``` is greater than 30, then picks only the name and email fields from each.
+This filters `data.json` to include only records where `age` is greater than 30, and then selects the `name` and `email` fields.
+
+---
 
 ### 3. Export
 
-Export JSON data into different formats.
+Export JSON data to various formats.
 
-```
+```bash
 tool export <input.json> --format <format>
 ```
 
-- ```<input.json>```: Path to the JSON file to export (required).
-- ```--format```: Output format, one of ```csv```, ```markdown``` or ```table``` (required).
+* Supported formats: `csv`, `markdown`, `table`
 
-### Example:
+**Example:**
 
-```
+```bash
 tool export data.json --format csv
 ```
 
-This exports the JSON data into CSV format and prints it to the console.
+This exports the data in `data.json` to CSV format and prints it to the console.
+
+---
 
 ### 4. Script
 
 Run an external JavaScript file using Node.js.
 
-```
+```bash
 tool script run <script.js>
 ```
 
-- ```<script.js>```: Path to the JavaScript file to run (required).
+**Example:**
 
-### Example:
-
-```
-tool script run myscript.js
+```bash
+tool script run myScript.js
 ```
 
-Runs the ````myscript.js``` file with Node.js.
+This runs the `myScript.js` file using Node.js.
 
+---
+
+## 📄 License <a name="license"></a>
+
+This project is licensed under the **MIT License** – see the [LICENSE](./LICENSE) file for details.
