@@ -1,5 +1,7 @@
 # 📦 CLI Tool
 
+> This README is also available in [English](README_en.md)
+
 ## 📖 Índice
 
 * [Acerca de](#acerca-de)

@@ -1,5 +1,7 @@
 # 📦 CLI Tool
 
+> Este README también está disponible en [Español](README.md)
+
 ## 📖 Table of Contents
 
 * [About](#about)
